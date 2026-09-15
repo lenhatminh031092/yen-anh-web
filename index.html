@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tên Shop Của Bạn - Váy & Áo Dài</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <img src="images/logo.jpg" alt="Yến Anh Hanoi" class="brand-logo">
+      <div class="brand-name">
+        <span class="brand-title">YẾN ANH</span>
+        <span class="brand-sub">Hanoi</span>
+      </div>
+    </div>
+    <nav>
+      <a href="#">Trang chủ</a>
+      <a href="#">Váy</a>
+      <a href="#">Áo dài</a>
+    </nav>
+    <button class="cart-btn" id="cartBtn">
+      Giỏ hàng <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </header>
+
+  <section class="hero">
+    <img src="images/hero-kinh-ky.jpg" alt="Yến Anh Tết 2026 - Kinh Kỳ Collection" class="hero-img">
+    <div class="hero-overlay">
+      <p class="hero-eyebrow">Yến Anh Tết 2026 Collection</p>
+      <h2 class="hero-title">Kinh kỳ</h2>
+      <a href="#products" class="hero-cta">Khám phá bộ sưu tập</a>
+    </div>
+  </section>
+
+  <main id="products">
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">Tất cả</button>
+      <button class="filter-tab" data-filter="vay">Váy</button>
+      <button class="filter-tab" data-filter="aodai">Áo dài</button>
+    </div>
+
+    <section class="product-grid">
+
+      <div class="product-card" data-category="aodai" data-name="Áo dài Mơ Phai" data-price="1490000">
+        <img src="images/mo-phai-1.jpg" alt="Áo dài Mơ Phai">
+        <h3>Mơ Phai</h3>
+        <p class="price">1.490.000đ</p>
+        <button class="add-to-cart">Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card" data-category="aodai" data-name="Áo dài Tú Cầu" data-price="1490000">
+        <img src="images/tu-cau.jpg" alt="Áo dài Tú Cầu">
+        <h3>Tú Cầu</h3>
+        <p class="price">1.490.000đ</p>
+        <button class="add-to-cart">Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card" data-category="aodai" data-name="Áo dài Mật Đào" data-price="1490000">
+        <img src="images/mat-dao-1.jpg" alt="Áo dài Mật Đào">
+        <h3>Mật Đào</h3>
+        <p class="price">1.490.000đ</p>
+        <button class="add-to-cart">Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card" data-category="aodai" data-name="Áo dài Tiểu Khánh Ngân" data-price="1290000">
+        <img src="images/tieu-khanh-ngan-1.jpg" alt="Áo dài Tiểu Khánh Ngân">
+        <h3>Tiểu Khánh Ngân</h3>
+        <p class="price">1.290.000đ</p>
+        <button class="add-to-cart">Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card" data-category="aodai" data-name="Áo dài Ngự Uyển" data-price="1590000">
+        <img src="images/ngu-uyen-1.jpg" alt="Áo dài Ngự Uyển">
+        <h3>Ngự Uyển</h3>
+        <p class="price">1.590.000đ</p>
+        <button class="add-to-cart">Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card" data-category="aodai" data-name="Áo dài Vọng Vân" data-price="1290000">
+        <img src="images/vong-van-1.jpg" alt="Áo dài Vọng Vân">
+        <h3>Vọng Vân</h3>
+        <p class="price">1.290.000đ</p>
+        <button class="add-to-cart">Thêm vào giỏ</button>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>YẾN ANH — Hanoi</p>
+    <p>Theo dõi tại Facebook: <a href="https://www.facebook.com/yenanhbrand" target="_blank">facebook.com/yenanhbrand</a> &nbsp;·&nbsp; Zalo đặt hàng: 0900 000 000</p>
+  </footer>
+
+  <!-- Lightbox xem ảnh phóng to -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightboxClose">&times;</span>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+  <!-- Giỏ hàng trượt từ bên phải -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h2>Giỏ hàng</h2>
+      <span class="cart-close" id="cartClose">&times;</span>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="cart-empty" id="cartEmpty">Giỏ hàng đang trống</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span>Tổng cộng</span>
+        <span id="cartSubtotal">0đ</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn">Tiến hành thanh toán</button>
+    </div>
+  </aside>
+
+  <!-- Khung thanh toán -->
+  <div class="checkout-overlay" id="checkoutOverlay"></div>
+  <div class="checkout-modal" id="checkoutModal">
+    <span class="checkout-close" id="checkoutClose">&times;</span>
+
+    <div id="checkoutForm">
+      <h2>Thông tin đặt hàng</h2>
+      <div class="checkout-summary" id="checkoutSummary"></div>
+      <div class="checkout-total">
+        <span>Tổng thanh toán</span>
+        <span id="checkoutTotal">0đ</span>
+      </div>
+      <form id="orderForm">
+        <label>Họ tên
+          <input type="text" id="custName" required>
+        </label>
+        <label>Số điện thoại
+          <input type="tel" id="custPhone" required>
+        </label>
+        <label>Địa chỉ nhận hàng
+          <input type="text" id="custAddress" required>
+        </label>
+        <button type="submit">Xem mã QR thanh toán</button>
+      </form>
+    </div>
+
+    <div id="checkoutQR" class="checkout-qr hidden">
+      <h2>Quét mã để thanh toán</h2>
+      <img id="qrImage" src="" alt="Mã QR thanh toán">
+      <p class="qr-note">Nội dung chuyển khoản đã tự điền sẵn mã đơn, vui lòng giữ nguyên để shop đối soát nhanh.</p>
+      <p class="order-code">Mã đơn: <strong id="orderCode"></strong></p>
+      <button id="confirmPaidBtn">Tôi đã chuyển khoản</button>
+    </div>
+
+    <div id="checkoutSuccess" class="checkout-success hidden">
+      <h2>Cảm ơn bạn đã đặt hàng!</h2>
+      <p>Đơn <strong id="successOrderCode"></strong> đã được ghi nhận. Shop sẽ xác nhận thanh toán và giao hàng trong 1-2 ngày.</p>
+      <p>Vui lòng chụp lại màn hình chuyển khoản gửi qua Zalo <strong>0900 000 000</strong> để được xử lý nhanh hơn.</p>
+      <button id="closeSuccessBtn">Đóng</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

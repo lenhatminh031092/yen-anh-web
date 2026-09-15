@@ -1,0 +1,611 @@
+/* ===== 1. Biến màu & font dùng chung ===== */
+:root {
+  --color-bg: #FBF6EC;
+  --color-surface: #FFFFFF;
+  --color-text: #2A2118;
+  --color-text-muted: #7A6E5D;
+  --color-accent: #7A241F;
+  --color-accent-soft: #EAD9C3;
+  --color-gold: #B8935A;
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* ===== 2. Reset mặc định của trình duyệt ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.5;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ===== 3. Header ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 48px;
+  border-bottom: 1px solid var(--color-accent-soft);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.brand-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--color-accent);
+}
+
+.brand-sub {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+nav {
+  flex: 1;
+  text-align: center;
+}
+
+nav a {
+  margin: 0 16px;
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 15px;
+}
+
+nav a:hover {
+  color: var(--color-accent);
+}
+
+.cart-btn {
+  background: var(--color-text);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.cart-btn:hover {
+  background: var(--color-accent);
+}
+
+.cart-count {
+  display: inline-block;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+  margin-left: 6px;
+}
+
+/* ===== 3b. Hero banner "Kinh kỳ" ===== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 62vh;
+  min-height: 380px;
+  max-height: 560px;
+  overflow: hidden;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(20, 14, 10, 0.7) 0%, rgba(20, 14, 10, 0.2) 45%, rgba(20, 14, 10, 0) 70%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 40px 56px;
+  color: #fff;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: 56px;
+  font-weight: 600;
+  margin-bottom: 22px;
+}
+
+.hero-cta {
+  display: inline-block;
+  padding: 12px 28px;
+  border: 1px solid #fff;
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+}
+
+.hero-cta:hover {
+  background: #fff;
+  color: var(--color-text);
+}
+
+/* ===== 4. Khu vực chính & bộ lọc ===== */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.filter-tab {
+  background: none;
+  border: 1px solid var(--color-accent-soft);
+  padding: 8px 20px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+}
+
+.filter-tab:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.filter-tab.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+/* ===== 5. Lưới sản phẩm ===== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 32px;
+}
+
+.product-card {
+  background: transparent;
+}
+
+.product-card img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  cursor: zoom-in;
+  border-radius: 16px;
+  transition: opacity 0.2s ease;
+}
+
+.product-card img:hover {
+  opacity: 0.9;
+}
+
+.product-card h3 {
+  font-family: var(--font-heading);
+  font-size: 19px;
+  font-weight: 500;
+  margin-top: 14px;
+}
+
+.product-card .price {
+  color: var(--color-accent);
+  font-size: 15px;
+  margin-top: 4px;
+}
+
+.product-card button {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  background: var(--color-text);
+  color: #fff;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.product-card button:hover {
+  background: var(--color-accent);
+}
+
+/* ===== 6. Footer ===== */
+footer {
+  text-align: center;
+  padding: 32px;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  border-top: 1px solid var(--color-accent-soft);
+}
+
+/* ===== 7. Lightbox - khung xem ảnh phóng to ===== */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 36, 32, 0.92);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 85%;
+  max-height: 85%;
+  cursor: zoom-in;
+  transition: transform 0.25s ease;
+  transform: scale(1);
+}
+
+.lightbox img.zoomed {
+  cursor: zoom-out;
+  transform: scale(2);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  color: #fff;
+  font-size: 36px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* ===== 8. Giỏ hàng trượt (cart drawer) ===== */
+.cart-overlay,
+.checkout-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 36, 32, 0.5);
+  z-index: 200;
+}
+
+.cart-overlay.active,
+.checkout-overlay.active {
+  display: block;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -380px;
+  width: 360px;
+  max-width: 90vw;
+  height: 100vh;
+  background: var(--color-surface);
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s ease;
+}
+
+.cart-drawer.active {
+  right: 0;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-accent-soft);
+}
+
+.cart-header h2 {
+  font-family: var(--font-heading);
+  font-size: 22px;
+}
+
+.cart-close {
+  cursor: pointer;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 24px;
+}
+
+.cart-empty {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.cart-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-accent-soft);
+}
+
+.cart-item img {
+  width: 64px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cart-item-info {
+  flex: 1;
+}
+
+.cart-item-info h4 {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.cart-item-price {
+  color: var(--color-accent);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.cart-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.cart-item-qty button {
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--color-accent-soft);
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.cart-item-remove {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.cart-footer {
+  padding: 20px 24px;
+  border-top: 1px solid var(--color-accent-soft);
+}
+
+.cart-subtotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  margin-bottom: 14px;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ===== 9. Khung thanh toán (checkout modal) ===== */
+.checkout-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 420px;
+  max-width: 90vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--color-surface);
+  z-index: 202;
+  padding: 32px;
+}
+
+.checkout-modal.active {
+  display: block;
+}
+
+.checkout-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 26px;
+}
+
+.checkout-modal h2 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.checkout-summary {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.checkout-summary div {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.checkout-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 12px 0;
+  border-top: 1px solid var(--color-accent-soft);
+  border-bottom: 1px solid var(--color-accent-soft);
+  margin-bottom: 20px;
+}
+
+#orderForm label {
+  display: block;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-bottom: 14px;
+}
+
+#orderForm input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  border: 1px solid var(--color-accent-soft);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+#orderForm button,
+.checkout-qr button,
+.checkout-success button {
+  width: 100%;
+  padding: 12px;
+  background: var(--color-text);
+  color: #fff;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+#orderForm button:hover,
+.checkout-qr button:hover,
+.checkout-success button:hover {
+  background: var(--color-accent);
+}
+
+.checkout-qr {
+  text-align: center;
+}
+
+.checkout-qr img {
+  width: 220px;
+  height: 220px;
+  margin: 12px auto;
+  border: 1px solid var(--color-accent-soft);
+}
+
+.qr-note {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+
+.order-code {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.checkout-success {
+  text-align: center;
+}
+
+.checkout-success p {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+/* ===== 10. Responsive cho điện thoại ===== */
+@media (max-width: 600px) {
+  header {
+    flex-wrap: wrap;
+    padding: 16px 20px;
+  }
+  nav {
+    order: 3;
+    width: 100%;
+  }
+  main {
+    padding: 32px 16px;
+  }
+  .hero {
+    height: 46vh;
+    min-height: 300px;
+  }
+  .hero-overlay {
+    padding: 24px 24px;
+  }
+  .hero-title {
+    font-size: 38px;
+  }
+}
