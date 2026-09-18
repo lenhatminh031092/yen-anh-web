@@ -85,6 +85,61 @@ filterTabs.forEach(function (tab) {
   });
 });
 
+/* ================= 2b. CHỌN SIZE ================= */
+// Mỗi sản phẩm có 3 nút size riêng, bấm vào nút nào thì nút đó được "chọn"
+// (thêm class .selected), các nút còn lại trong CÙNG sản phẩm đó bị bỏ chọn
+document.querySelectorAll('.product-card').forEach(function (card) {
+  const sizeButtons = card.querySelectorAll('.size-option');
+  sizeButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      sizeButtons.forEach(function (b) { b.classList.remove('selected'); });
+      btn.classList.add('selected');
+    });
+  });
+});
+
+/* ================= 2c. BẢNG SIZE ================= */
+const sizeGuideLinks = document.querySelectorAll('.size-guide-link');
+const sizeGuideModal = document.getElementById('sizeGuideModal');
+const sizeGuideOverlay = document.getElementById('sizeGuideOverlay');
+const sizeGuideClose = document.getElementById('sizeGuideClose');
+
+sizeGuideLinks.forEach(function (link) {
+  link.addEventListener('click', function (event) {
+    event.preventDefault(); // link chỉ dùng để mở bảng size, không chuyển trang
+    sizeGuideModal.classList.add('active');
+    sizeGuideOverlay.classList.add('active');
+  });
+});
+
+function closeSizeGuide() {
+  sizeGuideModal.classList.remove('active');
+  sizeGuideOverlay.classList.remove('active');
+}
+sizeGuideClose.addEventListener('click', closeSizeGuide);
+sizeGuideOverlay.addEventListener('click', closeSizeGuide);
+
+// Bảng size riêng cho Ngự Uyển, Vọng Vân (dùng modal thứ 2 vì số đo khác)
+const sizeGuideLinks2 = document.querySelectorAll('.size-guide-link-2');
+const sizeGuideModal2 = document.getElementById('sizeGuideModal2');
+const sizeGuideOverlay2 = document.getElementById('sizeGuideOverlay2');
+const sizeGuideClose2 = document.getElementById('sizeGuideClose2');
+
+sizeGuideLinks2.forEach(function (link) {
+  link.addEventListener('click', function (event) {
+    event.preventDefault();
+    sizeGuideModal2.classList.add('active');
+    sizeGuideOverlay2.classList.add('active');
+  });
+});
+
+function closeSizeGuide2() {
+  sizeGuideModal2.classList.remove('active');
+  sizeGuideOverlay2.classList.remove('active');
+}
+sizeGuideClose2.addEventListener('click', closeSizeGuide2);
+sizeGuideOverlay2.addEventListener('click', closeSizeGuide2);
+
 /* ================= 3. GIỎ HÀNG ================= */
 // Giỏ hàng là 1 mảng object, mỗi object là 1 sản phẩm: {name, price, image, qty}
 // Lưu vào localStorage để khách quay lại trang không bị mất giỏ hàng
@@ -95,7 +150,9 @@ function saveCart() {
 }
 
 function addToCart(product) {
-  const existing = cart.find(function (item) { return item.name === product.name; });
+  const existing = cart.find(function (item) {
+    return item.name === product.name && item.size === product.size;
+  });
   if (existing) {
     existing.qty += 1;
   } else {
@@ -105,19 +162,19 @@ function addToCart(product) {
   renderCart();
 }
 
-function changeQty(name, delta) {
-  const item = cart.find(function (item) { return item.name === name; });
+function changeQty(name, size, delta) {
+  const item = cart.find(function (item) { return item.name === name && item.size === size; });
   if (!item) return;
   item.qty += delta;
   if (item.qty <= 0) {
-    cart = cart.filter(function (i) { return i.name !== name; });
+    cart = cart.filter(function (i) { return !(i.name === name && i.size === size); });
   }
   saveCart();
   renderCart();
 }
 
-function removeFromCart(name) {
-  cart = cart.filter(function (item) { return item.name !== name; });
+function removeFromCart(name, size) {
+  cart = cart.filter(function (item) { return !(item.name === name && item.size === size); });
   saveCart();
   renderCart();
 }
@@ -145,6 +202,7 @@ function renderCart() {
         '<img src="' + item.image + '" alt="' + item.name + '">' +
         '<div class="cart-item-info">' +
           '<h4>' + item.name + '</h4>' +
+          '<p class="cart-item-size">Size: ' + item.size + '</p>' +
           '<p class="cart-item-price">' + formatMoney(item.price) + '</p>' +
           '<div class="cart-item-qty">' +
             '<button class="qty-minus">-</button>' +
@@ -155,13 +213,13 @@ function renderCart() {
         '</div>';
 
       el.querySelector('.qty-minus').addEventListener('click', function () {
-        changeQty(item.name, -1);
+        changeQty(item.name, item.size, -1);
       });
       el.querySelector('.qty-plus').addEventListener('click', function () {
-        changeQty(item.name, 1);
+        changeQty(item.name, item.size, 1);
       });
       el.querySelector('.cart-item-remove').addEventListener('click', function () {
-        removeFromCart(item.name);
+        removeFromCart(item.name, item.size);
       });
 
       cartItemsEl.appendChild(el);
@@ -175,10 +233,12 @@ function renderCart() {
 document.querySelectorAll('.add-to-cart').forEach(function (btn) {
   btn.addEventListener('click', function () {
     const card = btn.closest('.product-card');
+    const selectedSizeBtn = card.querySelector('.size-option.selected');
     addToCart({
       name: card.dataset.name,
       price: Number(card.dataset.price),
-      image: card.querySelector('img').src
+      image: card.querySelector('img').src,
+      size: selectedSizeBtn.dataset.size
     });
   });
 });
@@ -207,7 +267,7 @@ checkoutBtn.addEventListener('click', function () {
 
   // Đổ danh sách sản phẩm + tổng tiền vào khung thanh toán
   checkoutSummary.innerHTML = cart.map(function (item) {
-    return '<div><span>' + item.name + ' x' + item.qty + '</span><span>' +
+    return '<div><span>' + item.name + ' (Size ' + item.size + ') x' + item.qty + '</span><span>' +
       formatMoney(item.price * item.qty) + '</span></div>';
   }).join('');
   checkoutTotal.textContent = formatMoney(getCartTotal());
